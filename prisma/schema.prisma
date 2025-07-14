@@ -1,0 +1,20 @@
+model TimeEntryGroup {
+  id             String   @id @default(uuid())
+  userId         String
+  date           DateTime
+  weekEndingDate DateTime
+  status         String   // 'draft' | 'submitted'
+  notes          String?
+  jobs           TimeEntryJob[]
+
+  user           Users    @relation(fields: [userId], references: [userId])
+}
+
+model TimeEntryJob {
+  id          String   @id @default(uuid())
+  groupId     String
+  jobNumber   String
+  hoursWorked Float
+
+  group       TimeEntryGroup @relation(fields: [groupId], references: [id])
+}
