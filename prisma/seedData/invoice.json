@@ -1,36 +1,41 @@
 [
   {
     "invoiceId": "INV-001",
+    "invoiceNumber": 10080,
     "dlrId": "DLR-001",
-    "amount": 1250.00,
+    "totalAmount": 1250.00,
     "status": "Pending",
     "date": "2024-07-09"
   },
   {
     "invoiceId": "INV-002",
+    "invoiceNumber": null,
     "dlrId": "DLR-002",
-    "amount": 890.00,
+    "totalAmount": 890.00,
     "status": "Approved",
     "date": "2024-07-10"
   },
   {
     "invoiceId": "INV-003",
+    "invoiceNumber": null,
     "dlrId": "DLR-003",
-    "amount": 300.00,
+    "totalAmount": 300.00,
     "status": "Rejected",
     "date": "2024-07-11"
   },
   {
     "invoiceId": "INV-004",
+    "invoiceNumber": 90210,
     "dlrId": "DLR-004",
-    "amount": 980.00,
+    "totalAmount": 980.00,
     "status": "Pending",
     "date": "2024-07-12"
   },
   {
     "invoiceId": "INV-005",
+    "invoiceNumber": null,
     "dlrId": "DLR-005",
-    "amount": 720.00,
+    "totalAmount": 720.00,
     "status": "Pending",
     "date": "2024-07-13"
   }

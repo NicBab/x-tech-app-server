@@ -5,6 +5,7 @@
     "mfr": "Acme",
     "sku": "P-1001",
     "price": 120.5,
+    "rating": 4.8,
     "stockQuantity": 20
   },
   {
@@ -13,6 +14,7 @@
     "mfr": "Delta",
     "sku": "S-2002",
     "price": 35.0,
+    "rating": 2,
     "stockQuantity": 100
   },
   {
@@ -21,6 +23,7 @@
     "mfr": "Omron",
     "sku": "R-3003",
     "price": 8.25,
+    "rating": 4.2,
     "stockQuantity": 250
   },
   {
@@ -29,6 +32,7 @@
     "mfr": "Schneider",
     "sku": "HMI-4004",
     "price": 499.99,
+    "rating": 4,
     "stockQuantity": 15
   },
   {
@@ -37,6 +41,7 @@
     "mfr": "Allen-Bradley",
     "sku": "PLC-5005",
     "price": 950.0,
+    
     "stockQuantity": 10
   }
 ]

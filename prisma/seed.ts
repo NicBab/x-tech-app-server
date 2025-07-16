@@ -27,8 +27,8 @@ async function main() {
 
   // Delete children first
   const deleteOrder = [
-  "timeEntryJobs.json",
-  "timeEntryGroups.json",
+  "timeEntryJob.json",
+  "timeEntryGroup.json",
   "expenseByCategory.json",
   "expenseSummary.json",
   "expenses.json",
@@ -36,9 +36,9 @@ async function main() {
   "purchases.json",
   "salesSummary.json",
   "sales.json",
-  "dlrs.json",
-  "invoices.json",
-  "purchaseOrders.json",
+  "dLR.json",
+  "invoice.json",
+  "purchaseOrder.json",
   "users.json",
   "products.json", // last
 ];
@@ -49,9 +49,9 @@ async function main() {
   const insertOrder = [
   "products.json",
   "users.json",
-  "dlrs.json",
-  "invoices.json",
-  "purchaseOrders.json",
+  "dLR.json",
+  "invoice.json",
+  "purchaseOrder.json",
   "sales.json",
   "salesSummary.json",
   "purchases.json",
@@ -59,8 +59,8 @@ async function main() {
   "expenses.json",
   "expenseSummary.json",
   "expenseByCategory.json",
-  "timeEntryGroups.json",
-  "timeEntryJobs.json"
+  "timeEntryGroup.json",
+  "timeEntryJob.json"
 ];
 
   for (const fileName of insertOrder) {

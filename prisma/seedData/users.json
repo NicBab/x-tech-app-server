@@ -1,7 +1,40 @@
 [
-  { "userId": "u1", "name": "Nick Babineaux", "email": "nick@xtechnology-usa.com" },
-  { "userId": "u2", "name": "John Smith", "email": "john@xtechnology-usa.com" },
-  { "userId": "u3", "name": "Emily Davis", "email": "emily@xtechnology-usa.com" },
-  { "userId": "u4", "name": "Mike Johnson", "email": "mike@xtechnology-usa.com" },
-  { "userId": "u5", "name": "Sara Lee", "email": "sara@xtechnology-usa.com" }
+  {
+    "userId": "u001",
+    "name": "Nick Babineaux",
+    "email": "nick@xtechnology-usa.com",
+    "role": "ADMIN",
+    "password": "hashed_password_1"
+  },
+
+  {
+    "userId": "u002",
+    "name": "Jane Smith",
+    "email": "jane@xtechnology-usa.com",
+    "role": "EMPLOYEE",
+    "password": "hashed_password_2"
+  },
+
+  {
+    "userId": "u003",
+    "name": "John Doe",
+    "email": "john@xtechnology-usa.com",
+    "role": "EMPLOYEE",
+    "password": "hashed_password_3"
+  },
+  {
+    "userId": "u004",
+    "name": "Sara Connor",
+    "email": "sara@xtechnology-usa.com",
+    "role": "EMPLOYEE",
+    "password": "hashed_password_4"
+  },
+
+  {
+    "userId": "u005",
+    "name": "Tom Hardy",
+    "email": "tom@xtechnology-usa.com",
+    "role": "EMPLOYEE",
+    "password": "hashed_password_5"
+  }
 ]
