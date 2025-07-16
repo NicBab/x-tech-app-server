@@ -1,37 +1,37 @@
 [
   {
-    "poId": "PO-001",
-    "vendor": "Vendor A",
-    "amount": 1500.00,
-    "status": "Pending",
-    "date": "2024-07-08"
+    "id": "PO-001",
+    "poNumber": "PO-2024-001",
+    "vendorName": "Vendor A",
+    "totalAmount": 1500.00,
+    "approved": false
   },
   {
-    "poId": "PO-002",
-    "vendor": "Vendor B",
-    "amount": 2000.00,
-    "status": "Approved",
-    "date": "2024-07-09"
+    "id": "PO-002",
+    "poNumber": "PO-2024-002",
+    "vendorName": "Vendor B",
+    "totalAmount": 2000.00,
+    "approved": true
   },
   {
-    "poId": "PO-003",
-    "vendor": "Vendor C",
-    "amount": 1750.00,
-    "status": "Rejected",
-    "date": "2024-07-10"
+    "id": "PO-003",
+    "poNumber": "PO-2024-003",
+    "vendorName": "Vendor C",
+    "totalAmount": 1750.00,
+    "approved": false
   },
   {
-    "poId": "PO-004",
-    "vendor": "Vendor D",
-    "amount": 1980.00,
-    "status": "Pending",
-    "date": "2024-07-11"
+    "id": "PO-004",
+    "poNumber": "PO-2024-004",
+    "vendorName": "Vendor D",
+    "totalAmount": 1980.00,
+    "approved": false
   },
   {
-    "poId": "PO-005",
-    "vendor": "Vendor E",
-    "amount": 1650.00,
-    "status": "Pending",
-    "date": "2024-07-12"
+    "id": "PO-005",
+    "poNumber": "PO-2024-005",
+    "vendorName": "Vendor E",
+    "totalAmount": 1650.00,
+    "approved": false
   }
 ]
