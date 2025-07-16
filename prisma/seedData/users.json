@@ -1,0 +1,7 @@
+[
+  { "userId": "u1", "name": "Nick Babineaux", "email": "nick@xtechnology-usa.com" },
+  { "userId": "u2", "name": "John Smith", "email": "john@xtechnology-usa.com" },
+  { "userId": "u3", "name": "Emily Davis", "email": "emily@xtechnology-usa.com" },
+  { "userId": "u4", "name": "Mike Johnson", "email": "mike@xtechnology-usa.com" },
+  { "userId": "u5", "name": "Sara Lee", "email": "sara@xtechnology-usa.com" }
+]

@@ -1,0 +1,7 @@
+[
+  { "id": "j1", "groupId": "g1", "jobNumber": "XT-001", "hoursWorked": 8.0 },
+  { "id": "j2", "groupId": "g1", "jobNumber": "XT-002", "hoursWorked": 2.5 },
+  { "id": "j3", "groupId": "g2", "jobNumber": "XT-003", "hoursWorked": 9.0 },
+  { "id": "j4", "groupId": "g3", "jobNumber": "XT-004", "hoursWorked": 7.0 },
+  { "id": "j5", "groupId": "g4", "jobNumber": "XT-005", "hoursWorked": 6.0 }
+]

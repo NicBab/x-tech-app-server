@@ -1,0 +1,26 @@
+  [
+    {
+    "purchaseSummaryId": "ccfd8bd5-c2a1-4d13-bec1-74157854773a",
+    "totalPurchased": 4718798.68,
+    "changePercentage": 95.35,
+    "date": "2024-02-06T03:40:01Z"
+  },
+  {
+    "purchaseSummaryId": "c2ecb47d-7b26-4e78-8b48-96a436c434bd",
+    "totalPurchased": 1087744.03,
+    "changePercentage": 24.69,
+    "date": "2024-01-28T09:04:52Z"
+  },
+  {
+    "purchaseSummaryId": "5fc29456-3bcc-4b2c-9096-3c36bcfae126",
+    "totalPurchased": 3256718.55,
+    "changePercentage": 68.1,
+    "date": "2023-08-07T10:29:19Z"
+  },
+  {
+    "purchaseSummaryId": "3b42e538-f6b8-4d8b-8778-9c052a581d58",
+    "totalPurchased": 826579.41,
+    "changePercentage": -87.81,
+    "date": "2023-11-19T02:00:54Z"
+  }
+]

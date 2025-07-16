@@ -1,0 +1,37 @@
+[
+  {
+    "expenseByCategoryId": "0e980d1b-ae93-4a5a-b235-4dfea5f42860",
+    "expenseSummaryId": "5229a14b-443b-4551-9d01-4bc0dc820d05",
+    "date": "2023-11-23T11:54:21Z",
+    "category": "Office",
+    "amount": 48
+  },
+  {
+    "expenseByCategoryId": "076a4956-60c2-4b73-b275-530359a91cba",
+    "expenseSummaryId": "c17ff164-1ab4-41e7-91a8-8aab790dcd88",
+    "date": "2023-08-13T09:49:33Z",
+    "category": "Salaries",
+    "amount": 66
+  },
+  {
+    "expenseByCategoryId": "27d49b13-1a3a-4fc7-924c-07147e4d08bd",
+    "expenseSummaryId": "45ecf33b-6c3b-4e55-84ec-fa30b88aa03f",
+    "date": "2023-07-24T09:26:56Z",
+    "category": "Salaries",
+    "amount": 63
+  },
+  {
+    "expenseByCategoryId": "037fce5f-2c74-4f7a-a863-8cdd4db8a56b",
+    "expenseSummaryId": "e495b850-cf2b-4b76-93c2-d4241c859cd0",
+    "date": "2023-05-24T05:24:15Z",
+    "category": "Salaries",
+    "amount": 77
+  },
+  {
+    "expenseByCategoryId": "abdb6c33-81ff-45dd-a653-ceae0783729d",
+    "expenseSummaryId": "376f8d90-8b66-4cff-bd4e-2fcd14a42845",
+    "date": "2023-05-07T12:33:09Z",
+    "category": "Office",
+    "amount": 67
+  }
+]

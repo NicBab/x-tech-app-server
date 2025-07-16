@@ -1,0 +1,42 @@
+[
+  {
+    "saleId": "s1",
+    "productId": "p1",
+    "timestamp": "new Date()",
+    "quantity": 2,
+    "unitPrice": 299.99,
+    "totalAmount": 599.98
+  },
+  {
+    "saleId": "s2",
+    "productId": "p2",
+    "timestamp": "new Date()",
+    "quantity": 5,
+    "unitPrice": 179.99,
+    "totalAmount": 899.95
+  },
+  {
+    "saleId": "s3",
+    "productId": "p3",
+    "timestamp": "new Date()",
+    "quantity": 10,
+    "unitPrice": 19.99,
+    "totalAmount": 199.9
+  },
+  {
+    "saleId": "s4",
+    "productId": "p4",
+    "timestamp": "new Date()",
+    "quantity": 1,
+    "unitPrice": 499.99,
+    "totalAmount": 499.99
+  },
+  {
+    "saleId": "s5",
+    "productId": "p5",
+    "timestamp": "new Date()",
+    "quantity": 3,
+    "unitPrice": 799.99,
+    "totalAmount": 2399.97
+  }
+]
