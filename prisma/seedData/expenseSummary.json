@@ -1,26 +1,32 @@
   [
-    {
-    "purchaseSummaryId": "ccfd8bd5-c2a1-4d13-bec1-74157854773a",
-    "totalPurchased": 4718798.68,
-    "changePercentage": 95.35,
-    "date": "2024-02-06T03:40:01Z"
+{
+    "expenseSummaryId": "5229a14b-443b-4551-9d01-4bc0dc820d05",
+    "totalExpenses": 40749250.15,
+    "date": "2022-08-23T23:59:13Z"
   },
   {
-    "purchaseSummaryId": "c2ecb47d-7b26-4e78-8b48-96a436c434bd",
-    "totalPurchased": 1087744.03,
-    "changePercentage": 24.69,
-    "date": "2024-01-28T09:04:52Z"
+    "expenseSummaryId": "c17ff164-1ab4-41e7-91a8-8aab790dcd88",
+    "totalExpenses": 82516685.25,
+    "date": "2021-12-28T17:03:47Z"
   },
   {
-    "purchaseSummaryId": "5fc29456-3bcc-4b2c-9096-3c36bcfae126",
-    "totalPurchased": 3256718.55,
-    "changePercentage": 68.1,
-    "date": "2023-08-07T10:29:19Z"
+    "expenseSummaryId": "45ecf33b-6c3b-4e55-84ec-fa30b88aa03f",
+    "totalExpenses": 41860250.4,
+    "date": "2021-09-18T23:26:30Z"
   },
   {
-    "purchaseSummaryId": "3b42e538-f6b8-4d8b-8778-9c052a581d58",
-    "totalPurchased": 826579.41,
-    "changePercentage": -87.81,
-    "date": "2023-11-19T02:00:54Z"
+    "expenseSummaryId": "e495b850-cf2b-4b76-93c2-d4241c859cd0",
+    "totalExpenses": 49456718.68,
+    "date": "2022-01-08T04:26:56Z"
+  },
+  {
+    "expenseSummaryId": "376f8d90-8b66-4cff-bd4e-2fcd14a42845",
+    "totalExpenses": 35573786.54,
+    "date": "2020-08-31T11:45:23Z"
+  },
+  {
+    "expenseSummaryId": "744bb795-0f98-45cd-99ae-45dddb99c3e4",
+    "totalExpenses": 43767088.74,
+    "date": "2020-04-15T06:57:51Z"
   }
 ]

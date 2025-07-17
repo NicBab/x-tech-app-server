@@ -1,91 +1,60 @@
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
+
 const prisma = new PrismaClient();
+const seedDir = path.join(__dirname, "seedData");
 
-async function deleteAllData(orderedFileNames: string[]) {
-  const modelNames = orderedFileNames.map((fileName) => {
-    const modelName = path.basename(fileName, path.extname(fileName));
-    return modelName.charAt(0).toUpperCase() + modelName.slice(1);
-  });
-
-  for (const modelName of modelNames) {
-    const model: any = prisma[modelName as keyof typeof prisma];
-    if (model) {
-      await model.deleteMany({});
-      console.log(`Cleared data from ${modelName}`);
-    } else {
-      console.error(
-        `Model ${modelName} not found. Please ensure the model name is correctly specified.`
-      );
-    }
-  }
+async function load(file: string) {
+  return JSON.parse(fs.readFileSync(path.join(seedDir, file), "utf-8"));
 }
 
 async function main() {
-  const dataDirectory = path.join(__dirname, "seedData");
+  // DELETE in FK-safe order
+  await prisma.timeEntryJob.deleteMany();
+  await prisma.timeEntryGroup.deleteMany();
+  await prisma.expenseByCategory.deleteMany();
+  await prisma.expenseSummary.deleteMany();
+  await prisma.expenses.deleteMany();
+  await prisma.purchaseSummary.deleteMany();
+  await prisma.purchases.deleteMany();
+  await prisma.salesSummary.deleteMany();
+  await prisma.sales.deleteMany();
+  await prisma.dLR.deleteMany();
+  await prisma.purchaseOrder.deleteMany();
+  await prisma.invoice.deleteMany();
+  await prisma.users.deleteMany();
+  await prisma.products.deleteMany();
 
-  // Delete children first
-  const deleteOrder = [
-  "timeEntryJob.json",
-  "timeEntryGroup.json",
-  "expenseByCategory.json",
-  "expenseSummary.json",
-  "expenses.json",
-  "purchaseSummary.json",
-  "purchases.json",
-  "salesSummary.json",
-  "sales.json",
-  "dLR.json",
-  "purchaseOrder.json",
-  "invoice.json",
-  "users.json",
-  "products.json", // last
-];
+  console.log("All tables cleared");
 
-  await deleteAllData(deleteOrder);
+  // INSERT in safe order (adjust filenames if needed)
+  await prisma.users.createMany({ data: await load("users.json"), skipDuplicates: true });
+  await prisma.invoice.createMany({ data: await load("invoice.json"), skipDuplicates: true });
+  await prisma.purchaseOrder.createMany({ data: await load("purchaseOrder.json"), skipDuplicates: true });
+  await prisma.timeEntryGroup.createMany({ data: await load("timeEntryGroup.json"), skipDuplicates: true });
+  await prisma.timeEntryJob.createMany({ data: await load("timeEntryJob.json"), skipDuplicates: true });
+  await prisma.dLR.createMany({ data: await load("dlr.json"), skipDuplicates: true });
+  await prisma.products.createMany({ data: await load("products.json"), skipDuplicates: true });
+  await prisma.sales.createMany({ data: await load("sales.json"), skipDuplicates: true });
+  await prisma.salesSummary.createMany({ data: await load("salesSummary.json"), skipDuplicates: true });
 
-  // Then insert parents first
-  const insertOrder = [
-    "users.json",
-    "timeEntryGroup.json", 
-     "timeEntryJob.json",
-     "dLR.json",
-  "products.json",  
-  "invoice.json",        
-  "purchaseOrder.json",  
-  "sales.json",  
-  "salesSummary.json",  
-  "purchases.json",  
-  "purchaseSummary.json",  
-  "expenses.json",  
-  "expenseSummary.json",  
-  "expenseByCategory.json",  
-   
-  
-];
+  const products = await prisma.products.findMany({ select: { productId: true } });
+  const productIdSet = new Set(products.map((p) => p.productId));
+  const purchasesRaw = await load("purchases.json");
+  const purchases = purchasesRaw.filter((p: any) => productIdSet.has(p.productId));
 
+  await prisma.purchases.createMany({ data: purchases, skipDuplicates: true });
+  await prisma.purchaseSummary.createMany({ data: await load("purchaseSummary.json"), skipDuplicates: true });
+  await prisma.expenses.createMany({ data: await load("expenses.json"), skipDuplicates: true });
+  await prisma.expenseSummary.createMany({ data: await load("expenseSummary.json"), skipDuplicates: true });
+  await prisma.expenseByCategory.createMany({ data: await load("expenseByCategory.json"), skipDuplicates: true });
 
-  for (const fileName of insertOrder) {
-    const filePath = path.join(dataDirectory, fileName);
-    const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    const modelName = path.basename(fileName, path.extname(fileName)).toLowerCase();;
-    const model: any = prisma[modelName as keyof typeof prisma];
-
-    if (!model) {
-      console.error(`No Prisma model matches the file name: ${fileName}`);
-      continue;
-    }
-await model.createMany({ data: jsonData, skipDuplicates: true });
-
-    console.log(`Seeded ${modelName} with data from ${fileName}`);
-  }
+  console.log("Seeding complete");
 }
 
 main()
-  .catch((e) => {
-    console.error(e);
+  .catch((err) => {
+    console.error("Seed failed:", err);
   })
-  .finally(async () => {
-    await prisma.$disconnect();
-  });
+  .finally(() => prisma.$disconnect());

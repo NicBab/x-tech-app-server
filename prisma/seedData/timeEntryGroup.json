@@ -4,7 +4,7 @@
     "userId": "u001",
     "date": "2025-07-08T00:00:00.000Z",
     "weekEndingDate": "2025-07-12T00:00:00.000Z",
-    "status": "draft",
+    "status": "DRAFT",
     "notes": "Initial notes"
   },
   {
@@ -12,7 +12,7 @@
     "userId": "u002",
     "date": "2025-07-09T00:00:00.000Z",
     "weekEndingDate": "2025-07-13T00:00:00.000Z",
-    "status": "submitted",
+    "status": "SUBMITTED",
     "notes": "Worked extra hours"
   },
   {
@@ -20,7 +20,7 @@
     "userId": "u003",
     "date": "2025-07-10T00:00:00.000Z",
     "weekEndingDate": "2025-07-14T00:00:00.000Z",
-    "status": "draft",
+    "status": "DRAFT",
     "notes": null
   },
   {
@@ -28,7 +28,7 @@
     "userId": "u004",
     "date": "2025-07-11T00:00:00.000Z",
     "weekEndingDate": "2025-07-15T00:00:00.000Z",
-    "status": "submitted",
+    "status": "SUBMITTED",
     "notes": "Travel day"
   },
   {
@@ -36,7 +36,7 @@
     "userId": "u005",
     "date": "2025-07-12T00:00:00.000Z",
     "weekEndingDate": "2025-07-16T00:00:00.000Z",
-    "status": "draft",
+    "status": "DRAFT",
     "notes": "Worked remotely"
   }
 ]
