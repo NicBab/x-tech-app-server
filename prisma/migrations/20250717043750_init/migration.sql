@@ -108,7 +108,7 @@ CREATE TABLE "Products" (
 CREATE TABLE "Sales" (
     "saleId" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
-    "timestamp" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
     "quantity" INTEGER NOT NULL,
     "unitPrice" DOUBLE PRECISION NOT NULL,
     "totalAmount" DOUBLE PRECISION NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE "Sales" (
 CREATE TABLE "Purchases" (
     "purchaseId" TEXT NOT NULL,
     "productId" TEXT NOT NULL,
-    "timestamp" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
     "quantity" INTEGER NOT NULL,
     "unitCost" DOUBLE PRECISION NOT NULL,
     "totalCost" DOUBLE PRECISION NOT NULL,
@@ -133,7 +133,7 @@ CREATE TABLE "Expenses" (
     "expenseId" TEXT NOT NULL,
     "category" TEXT NOT NULL,
     "amount" DOUBLE PRECISION NOT NULL,
-    "timestamp" TIMESTAMP(3) NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Expenses_pkey" PRIMARY KEY ("expenseId")
 );

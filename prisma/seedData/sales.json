@@ -2,7 +2,7 @@
   {
     "saleId": "s1",
     "productId": "p1",
-    "timestamp": "new Date()",
+    "date": "2024-01-28T09:04:52Z",
     "quantity": 2,
     "unitPrice": 299.99,
     "totalAmount": 599.98
@@ -10,7 +10,7 @@
   {
     "saleId": "s2",
     "productId": "p2",
-    "timestamp": "new Date()",
+    "date": "2024-02-06T03:40:01Z",
     "quantity": 5,
     "unitPrice": 179.99,
     "totalAmount": 899.95
@@ -18,7 +18,7 @@
   {
     "saleId": "s3",
     "productId": "p3",
-    "timestamp": "new Date()",
+    "date": "2023-08-13T09:49:33Z",
     "quantity": 10,
     "unitPrice": 19.99,
     "totalAmount": 199.9
@@ -26,7 +26,7 @@
   {
     "saleId": "s4",
     "productId": "p4",
-    "timestamp": "new Date()",
+    "date": "2025-07-09T00:00:00.000Z",
     "quantity": 1,
     "unitPrice": 499.99,
     "totalAmount": 499.99
@@ -34,7 +34,7 @@
   {
     "saleId": "s5",
     "productId": "p5",
-    "timestamp": "new Date()",
+    "date": "2023-04-08T22:11:59Z",
     "quantity": 3,
     "unitPrice": 799.99,
     "totalAmount": 2399.97

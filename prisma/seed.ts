@@ -37,8 +37,8 @@ async function main() {
   "salesSummary.json",
   "sales.json",
   "dLR.json",
-  "invoice.json",
   "purchaseOrder.json",
+  "invoice.json",
   "users.json",
   "products.json", // last
 ];
@@ -47,38 +47,36 @@ async function main() {
 
   // Then insert parents first
   const insertOrder = [
-  "products.json",
-  "users.json",
-  "dLR.json",
-  "invoice.json",
-  "purchaseOrder.json",
-  "sales.json",
-  "salesSummary.json",
-  "purchases.json",
-  "purchaseSummary.json",
-  "expenses.json",
-  "expenseSummary.json",
-  "expenseByCategory.json",
-  "timeEntryGroup.json",
-  "timeEntryJob.json"
+    "users.json",
+    "timeEntryGroup.json", 
+     "timeEntryJob.json",
+     "dLR.json",
+  "products.json",  
+  "invoice.json",        
+  "purchaseOrder.json",  
+  "sales.json",  
+  "salesSummary.json",  
+  "purchases.json",  
+  "purchaseSummary.json",  
+  "expenses.json",  
+  "expenseSummary.json",  
+  "expenseByCategory.json",  
+   
+  
 ];
+
 
   for (const fileName of insertOrder) {
     const filePath = path.join(dataDirectory, fileName);
     const jsonData = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-    const modelName = path.basename(fileName, path.extname(fileName));
+    const modelName = path.basename(fileName, path.extname(fileName)).toLowerCase();;
     const model: any = prisma[modelName as keyof typeof prisma];
 
     if (!model) {
       console.error(`No Prisma model matches the file name: ${fileName}`);
       continue;
     }
-
-    for (const data of jsonData) {
-      await model.create({
-        data,
-      });
-    }
+await model.createMany({ data: jsonData, skipDuplicates: true });
 
     console.log(`Seeded ${modelName} with data from ${fileName}`);
   }
