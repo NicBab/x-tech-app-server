@@ -3,6 +3,7 @@
     "userId": "u001",
     "name": "Nick Babineaux",
     "email": "nick@xtechnology-usa.com",
+    "phoneNumber": "(337)123-4567",
     "role": "ADMIN",
     "password": "hashed_password_1"
   },
@@ -11,6 +12,7 @@
     "userId": "u002",
     "name": "Jane Smith",
     "email": "jane@xtechnology-usa.com",
+    "phoneNumber": "337-321-7654",
     "role": "EMPLOYEE",
     "password": "hashed_password_2"
   },
@@ -19,6 +21,7 @@
     "userId": "u003",
     "name": "John Doe",
     "email": "john@xtechnology-usa.com",
+    "phoneNumber": "337-213-1234",
     "role": "EMPLOYEE",
     "password": "hashed_password_3"
   },
@@ -26,6 +29,7 @@
     "userId": "u004",
     "name": "Sara Connor",
     "email": "sara@xtechnology-usa.com",
+    "phoneNumber": "337-756-1234",
     "role": "EMPLOYEE",
     "password": "hashed_password_4"
   },
@@ -34,6 +38,7 @@
     "userId": "u005",
     "name": "Tom Hardy",
     "email": "tom@xtechnology-usa.com",
+    "phoneNumber": "337-987-7654",
     "role": "EMPLOYEE",
     "password": "hashed_password_5"
   }

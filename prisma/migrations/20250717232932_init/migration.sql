@@ -12,6 +12,7 @@ CREATE TABLE "Users" (
     "userId" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
+    "phoneNumber" TEXT,
     "role" "Role" NOT NULL DEFAULT 'EMPLOYEE',
     "password" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,

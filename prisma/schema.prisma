@@ -8,12 +8,13 @@ datasource db {
 }
 
 model Users {
-  userId    String   @id @default(uuid())
-  name      String
-  email     String   @unique
-  role      Role     @default(EMPLOYEE)
-  password  String // hashed
-  createdAt DateTime @default(now())
+  userId      String   @id @default(uuid())
+  name        String
+  email       String   @unique
+  phoneNumber String? //
+  role        Role     @default(EMPLOYEE)
+  password    String // hashed
+  createdAt   DateTime @default(now())
 
   dlrs        DLR[]
   timeEntries TimeEntryGroup[]
@@ -119,7 +120,7 @@ model Products {
 model Sales {
   saleId      String   @id @default(uuid())
   productId   String
-  date   DateTime
+  date        DateTime
   quantity    Int
   unitPrice   Float
   totalAmount Float
@@ -129,7 +130,7 @@ model Sales {
 model Purchases {
   purchaseId String   @id @default(uuid())
   productId  String
-  date  DateTime
+  date       DateTime
   quantity   Int
   unitCost   Float
   totalCost  Float
@@ -140,7 +141,7 @@ model Expenses {
   expenseId String   @id @default(uuid())
   category  String
   amount    Float
-  date DateTime
+  date      DateTime
 }
 
 model SalesSummary {
