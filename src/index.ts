@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import authRoutes from "./routes/authRoutes"
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -13,6 +14,9 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(cors());
+
+/*AUTH*/
+app.use("/api/auth", authRoutes);
 
  /*CONTROLLERS*/
 import userRoutes from "./routes/userRoutes";

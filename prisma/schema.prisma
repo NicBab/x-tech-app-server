@@ -14,6 +14,7 @@ model Users {
   phoneNumber String? //
   role        Role     @default(EMPLOYEE)
   password    String // hashed
+  verified    Boolean  @default(false)
   createdAt   DateTime @default(now())
 
   dlrs        DLR[]
