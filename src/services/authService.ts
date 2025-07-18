@@ -1,5 +1,7 @@
 import bcrypt from "bcryptjs";
 import prisma from "../prisma/client";
+import dotenv from "dotenv";
+dotenv.config();
 import { RegisterInput, LoginInput } from "../types/authTypes";
 import { generateToken } from "../utils/jwt";
 import { Role } from "@prisma/client";
@@ -13,6 +15,11 @@ const toPrismaRole = (role?: string): Role => {
 export const registerUser = async (input: RegisterInput) => {
   const { name, email, password, phoneNumber, role } = input;
   const hashedPassword = await bcrypt.hash(password, 10);
+
+const existingUser = await prisma.users.findUnique({ where: { email } });
+if (existingUser) {
+  throw new Error("Email is already registered.");
+}
 
   const user = await prisma.users.create({
     data: {

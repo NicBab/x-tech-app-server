@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 import fs from "fs";
 import path from "path";
+import dotenv from "dotenv";
+dotenv.config();
 
 const prisma = new PrismaClient();
 const seedDir = path.join(__dirname, "seedData");
