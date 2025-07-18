@@ -50,8 +50,7 @@ export const loginUser = async (input: LoginInput) => {
 
   const token = generateToken({
     userId: user.userId,
-    role: user.role
+    role: user.role.toLowerCase() as "admin" | "employee",
   });
-
   return { user, token };
 };

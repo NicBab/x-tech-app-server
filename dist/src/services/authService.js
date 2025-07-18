@@ -58,7 +58,7 @@ const loginUser = (input) => __awaiter(void 0, void 0, void 0, function* () {
         throw new Error("Invalid credentials");
     const token = (0, jwt_1.generateToken)({
         userId: user.userId,
-        role: user.role
+        role: user.role.toLowerCase(),
     });
     return { user, token };
 });
