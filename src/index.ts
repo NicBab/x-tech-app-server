@@ -4,7 +4,10 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 
+/*ROUTE IMPORTS*/
 import authRoutes from "./routes/authRoutes"
+import userRoutes from "./routes/userRoutes";
+import productRoutes from "./routes/productRoutes";
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -16,14 +19,13 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(cors());
 
-/*AUTH*/
-app.use("/api/auth", authRoutes);
-
- /*CONTROLLERS*/
-import userRoutes from "./routes/userRoutes";
-
-/* ROUTES */
+  /* ROUTES */
 app.use("/users", userRoutes);
+  /*AUTH*/
+app.use("/api/auth", authRoutes);
+  /*CONTROLLERS*/
+app.use("/products", productRoutes); // http://localhost:8000/products
+
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3001;
