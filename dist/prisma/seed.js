@@ -48,7 +48,7 @@ function main() {
         yield prisma.purchaseOrder.createMany({ data: yield load("purchaseOrder.json"), skipDuplicates: true });
         yield prisma.timeEntryGroup.createMany({ data: yield load("timeEntryGroup.json"), skipDuplicates: true });
         yield prisma.timeEntryJob.createMany({ data: yield load("timeEntryJob.json"), skipDuplicates: true });
-        yield prisma.dLR.createMany({ data: yield load("dlr.json"), skipDuplicates: true });
+        yield prisma.dLR.createMany({ data: yield load("dLR.json"), skipDuplicates: true });
         yield prisma.products.createMany({ data: yield load("products.json"), skipDuplicates: true });
         yield prisma.sales.createMany({ data: yield load("sales.json"), skipDuplicates: true });
         yield prisma.salesSummary.createMany({ data: yield load("salesSummary.json"), skipDuplicates: true });
