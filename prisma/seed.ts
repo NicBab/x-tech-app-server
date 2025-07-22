@@ -36,7 +36,7 @@ async function main() {
   await prisma.purchaseOrder.createMany({ data: await load("purchaseOrder.json"), skipDuplicates: true });
   await prisma.timeEntryGroup.createMany({ data: await load("timeEntryGroup.json"), skipDuplicates: true });
   await prisma.timeEntryJob.createMany({ data: await load("timeEntryJob.json"), skipDuplicates: true });
-  await prisma.dLR.createMany({ data: await load("dlr.json"), skipDuplicates: true });
+  await prisma.dLR.createMany({ data: await load("dLR.json"), skipDuplicates: true });
   await prisma.products.createMany({ data: await load("products.json"), skipDuplicates: true });
   await prisma.sales.createMany({ data: await load("sales.json"), skipDuplicates: true });
   await prisma.salesSummary.createMany({ data: await load("salesSummary.json"), skipDuplicates: true });
