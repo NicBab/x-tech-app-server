@@ -19,12 +19,15 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(cors());
 
+
+  /*AUTH ROUTES*/
+app.use("/api/auth", authRoutes);
   /* ROUTES */
 app.use("/users", userRoutes);
-  /*AUTH*/
-app.use("/api/auth", authRoutes);
-  /*CONTROLLERS*/
 app.use("/products", productRoutes); // http://localhost:8000/products
+
+  
+
 
 
 /* SERVER */

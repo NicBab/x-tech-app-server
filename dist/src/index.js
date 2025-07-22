@@ -21,11 +21,10 @@ app.use((0, helmet_1.default)());
 app.use(helmet_1.default.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use((0, morgan_1.default)("common"));
 app.use((0, cors_1.default)());
+/*AUTH ROUTES*/
+app.use("/api/auth", authRoutes_1.default);
 /* ROUTES */
 app.use("/users", userRoutes_1.default);
-/*AUTH*/
-app.use("/api/auth", authRoutes_1.default);
-/*CONTROLLERS*/
 app.use("/products", productRoutes_1.default); // http://localhost:8000/products
 /* SERVER */
 const port = Number(process.env.PORT) || 3001;
