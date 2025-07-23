@@ -8,6 +8,7 @@ import morgan from "morgan";
 import authRoutes from "./routes/authRoutes"
 import userRoutes from "./routes/userRoutes";
 import productRoutes from "./routes/productRoutes";
+import dlrRoutes from "./routes/dlrRoutes"
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -25,6 +26,7 @@ app.use("/api/auth", authRoutes);
   /* ROUTES */
 app.use("/users", userRoutes);
 app.use("/products", productRoutes); // http://localhost:8000/products
+app.use("/dlrs", dlrRoutes)
 
   
 

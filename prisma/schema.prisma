@@ -27,7 +27,7 @@ enum Role {
 }
 
 model DLR {
-  id            String    @id @default(uuid())
+  dlrId         String    @id @default(uuid())
   dlrNumber     String    @unique
   jobNumber     String
   date          DateTime
