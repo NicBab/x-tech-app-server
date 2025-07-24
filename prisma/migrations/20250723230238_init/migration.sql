@@ -15,6 +15,7 @@ CREATE TABLE "Users" (
     "phoneNumber" TEXT,
     "role" "Role" NOT NULL DEFAULT 'EMPLOYEE',
     "password" TEXT NOT NULL,
+    "verified" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("userId")
@@ -22,7 +23,7 @@ CREATE TABLE "Users" (
 
 -- CreateTable
 CREATE TABLE "DLR" (
-    "id" TEXT NOT NULL,
+    "dlrId" TEXT NOT NULL,
     "dlrNumber" TEXT NOT NULL,
     "jobNumber" TEXT NOT NULL,
     "date" TIMESTAMP(3) NOT NULL,
@@ -41,7 +42,7 @@ CREATE TABLE "DLR" (
     "invoiceId" TEXT,
     "poId" TEXT,
 
-    CONSTRAINT "DLR_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "DLR_pkey" PRIMARY KEY ("dlrId")
 );
 
 -- CreateTable

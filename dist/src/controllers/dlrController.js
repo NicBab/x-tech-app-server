@@ -14,7 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createDLR = exports.getDLRs = void 0;
 const client_1 = __importDefault(require("../prisma/client"));
-// GET 
+// src/controllers/dlrController.ts
 const getDLRs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const search = (_a = req.query.search) === null || _a === void 0 ? void 0 : _a.toString().toLowerCase();
@@ -23,14 +23,21 @@ const getDLRs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             where: search
                 ? {
                     OR: [
-                        { dlrId: { contains: search, mode: "insensitive" } },
+                        { dlrNumber: { contains: search, mode: "insensitive" } },
                         { jobNumber: { contains: search, mode: "insensitive" } },
-                        { employeeName: { contains: search, mode: "insensitive" } },
                         { customer: { contains: search, mode: "insensitive" } },
+                        { notes: { contains: search, mode: "insensitive" } },
+                        // 👇 You can't search by `user.name` without a nested relation.
+                        // If needed, you can `include: { user: true }` and filter manually.
                     ],
                 }
                 : undefined,
             orderBy: { date: "desc" },
+            include: {
+                user: true, // to get employee name
+                invoice: true,
+                po: true,
+            },
         });
         res.json(dlrs);
     }
@@ -39,24 +46,34 @@ const getDLRs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getDLRs = getDLRs;
-// POST 
+// POST /dlrs
 const createDLR = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { jobNumber, employeeName, date, customer, status, userId } = req.body;
+    const { dlrNumber, jobNumber, date, userId, customer, notes, status, totalHours, fuel, hotel, mileage, otherExpenses, fileUrl, signedUrl, invoiceId, poId, } = req.body;
     try {
         const newDLR = yield client_1.default.dLR.create({
             data: {
+                dlrNumber,
                 jobNumber,
-                employeeName,
-                date,
-                customer,
-                status,
+                date: new Date(date), // ensure Date object
                 userId,
+                customer,
+                notes,
+                status,
+                totalHours,
+                fuel,
+                hotel,
+                mileage,
+                otherExpenses,
+                fileUrl,
+                signedUrl,
+                invoiceId,
+                poId,
             },
         });
         res.status(201).json(newDLR);
     }
     catch (err) {
-        res.status(500).json({ error: "Failed to create DLR" });
+        res.status(500).json({ error: "Failed to create DLR", details: err });
     }
 });
 exports.createDLR = createDLR;

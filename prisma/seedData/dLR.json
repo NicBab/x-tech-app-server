@@ -1,6 +1,6 @@
 [
   {
-    "id": "dlr1",
+    "dlrId": "dlr1",
     "dlrNumber": "DLR-001",
     "jobNumber": "XT-2024-001",
     "date": "2025-07-08T00:00:00.000Z",
@@ -20,7 +20,7 @@
     "poId": "PO-001"
   },
   {
-    "id": "dlr2",
+    "dlrId": "dlr2",
     "dlrNumber": "DLR-002",
     "jobNumber": "XT-2024-002",
     "date": "2025-07-09T00:00:00.000Z",
@@ -40,7 +40,7 @@
     "poId": "PO-002"
   },
   {
-    "id": "dlr3",
+    "dlrId": "dlr3",
     "dlrNumber": "DLR-003",
     "jobNumber": "XT-2024-003",
     "date": "2025-07-10T00:00:00.000Z",
@@ -60,7 +60,7 @@
     "poId": "PO-003"
   },
   {
-    "id": "dlr4",
+    "dlrId": "dlr4",
     "dlrNumber": "DLR-004",
     "jobNumber": "XT-2024-001",
     "date": "2025-07-11T00:00:00.000Z",
@@ -80,7 +80,7 @@
     "poId": null
   },
   {
-    "id": "dlr5",
+    "dlrId": "dlr5",
     "dlrNumber": "DLR-005",
     "jobNumber": "XT-2024-004",
     "date": "2025-07-12T00:00:00.000Z",
@@ -100,7 +100,7 @@
     "poId": null
   },
     {
-    "id": "dlr6",
+    "dlrId": "dlr6",
     "dlrNumber": "DLR-006",
     "jobNumber": "XT-2024-005",
     "date": "2025-07-12T00:00:00.000Z",
