@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes"
 import userRoutes from "./routes/userRoutes";
 import productRoutes from "./routes/productRoutes";
 import dlrRoutes from "./routes/dlrRoutes"
+import timesRoutes from "./routes/timesRoutes";
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -27,6 +28,7 @@ app.use("/api/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productRoutes); // http://localhost:8000/products
 app.use("/dlrs", dlrRoutes)
+app.use("/api/times", timesRoutes);
 
   
 
