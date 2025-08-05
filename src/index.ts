@@ -28,7 +28,7 @@ app.use("/api/auth", authRoutes);
 app.use("/users", userRoutes);
 app.use("/products", productRoutes); // http://localhost:8000/products
 app.use("/dlrs", dlrRoutes)
-app.use("/api/times", timesRoutes);
+app.use("/times", timesRoutes);
 
   
 

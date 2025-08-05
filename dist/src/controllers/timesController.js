@@ -16,14 +16,10 @@ exports.getTimeEntryGroups = void 0;
 const client_1 = __importDefault(require("../prisma/client"));
 const getTimeEntryGroups = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { userId, role } = req.query;
-        const whereClause = role === "admin"
-            ? {}
-            : {
-                userId: String(userId),
-            };
+        const { userId, role, status } = req.query;
+        const whereClause = Object.assign(Object.assign({}, (role !== "admin" && userId ? { userId: String(userId) } : {})), (status ? { status: status.toString().toUpperCase() } : {}));
         const groups = yield client_1.default.timeEntryGroup.findMany({
-            where: Object.assign(Object.assign({}, whereClause), { status: "SUBMITTED" }),
+            where: whereClause,
             include: {
                 user: { select: { name: true } },
                 jobs: true,
@@ -34,7 +30,7 @@ const getTimeEntryGroups = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
     catch (err) {
         console.error("Error fetching time entry groups:", err);
-        res.status(500).json({ error: "Failed to fetch submitted time entries" });
+        res.status(500).json({ error: "Failed to fetch time entries" });
     }
 });
 exports.getTimeEntryGroups = getTimeEntryGroups;
