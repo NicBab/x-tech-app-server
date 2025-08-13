@@ -11,4 +11,5 @@ router.post("/", timesController_1.upsertTimeEntryGroup); // create/update draft
 router.patch("/:id/submit", timesController_1.submitTimeEntryGroup); // DRAFT -> SUBMITTED
 router.delete("/:id", timesController_1.deleteDraftTimeEntryGroup); // delete only if DRAFT
 router.get("/:id", timesController_1.getTimeEntryGroupById);
+router.patch("/:id", timesController_1.updateDraftTimeEntryGroup);
 exports.default = router;
