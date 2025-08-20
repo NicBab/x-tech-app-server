@@ -24,14 +24,14 @@ app.use(cors());
 
   /*AUTH ROUTES*/
 app.use("/api/auth", authRoutes);
+
   /* ROUTES */
 app.use("/users", userRoutes);
-app.use("/products", productRoutes); // http://localhost:8000/products
+app.use("/products", productRoutes);
 app.use("/dlrs", dlrRoutes)
 app.use("/times", timesRoutes);
 
   
-
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3001;

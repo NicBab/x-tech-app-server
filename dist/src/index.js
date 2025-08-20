@@ -27,7 +27,7 @@ app.use((0, cors_1.default)());
 app.use("/api/auth", authRoutes_1.default);
 /* ROUTES */
 app.use("/users", userRoutes_1.default);
-app.use("/products", productRoutes_1.default); // http://localhost:8000/products
+app.use("/products", productRoutes_1.default);
 app.use("/dlrs", dlrRoutes_1.default);
 app.use("/times", timesRoutes_1.default);
 /* SERVER */

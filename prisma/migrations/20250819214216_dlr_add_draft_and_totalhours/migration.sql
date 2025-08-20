@@ -1,0 +1,5 @@
+-- AlterEnum
+ALTER TYPE "DLRStatus" ADD VALUE 'DRAFT';
+
+-- AlterTable
+ALTER TABLE "DLR" ALTER COLUMN "totalHours" SET DEFAULT 0;

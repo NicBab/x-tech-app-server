@@ -34,14 +34,14 @@ model DLR {
   userId        String
   customer      String
   notes         String?
-  status        DLRStatus @default(PENDING)
-  totalHours    Float
+  status        DLRStatus @default(PENDING) // or keep PENDING if you prefer; drafts will set DRAFT explicitly
+  totalHours    Float     @default(0) // <-- default lets migration run even with existing rows
   fuel          Float?
   hotel         Float?
   mileage       Float?
   otherExpenses String?
-  fileUrl       String? // Link to PDF file
-  signedUrl     String? // Signed copy from customer (uploaded manually)
+  fileUrl       String?
+  signedUrl     String?
   createdAt     DateTime  @default(now())
 
   user      Users          @relation(fields: [userId], references: [userId])
@@ -56,6 +56,7 @@ enum DLRStatus {
   APPROVED
   REJECTED
   REVIEW
+  DRAFT // <- add
 }
 
 model Invoice {
