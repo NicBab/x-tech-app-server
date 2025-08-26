@@ -23,6 +23,7 @@ const genDLRNumber = () => {
 };
 
 /** GET /dlrs?search=&userId=&role=(admin|employee)&status= */
+// in dlrController.ts, replace getDLRs with:
 export const getDLRs = async (req: Request, res: Response) => {
   const { search, userId, role, status } = req.query as {
     search?: string;
@@ -33,29 +34,36 @@ export const getDLRs = async (req: Request, res: Response) => {
 
   try {
     const term = search?.toString().trim();
-    const where: any = {
-      ...(role !== "admin" && userId ? { userId: String(userId) } : {}),
-      ...(status ? { status: toDLRStatus(status) } : {}),
-      ...(term
-        ? {
-            OR: [
-              { dlrNumber: { contains: term, mode: "insensitive" } },
-              { jobNumber: { contains: term, mode: "insensitive" } },
-              { customer: { contains: term, mode: "insensitive" } },
-              { notes: { contains: term, mode: "insensitive" } },
-            ],
-          }
-        : {}),
-    };
+    const roleIsAdmin = role === "admin";
+    const statusEnum =
+      typeof status === "string" && (Object.values(DLRStatus) as string[]).includes(status.toUpperCase())
+        ? (status.toUpperCase() as DLRStatus)
+        : undefined;
+
+    const where: any = {};
+
+    if (roleIsAdmin) {
+      // Admin: never return drafts
+      where.status = statusEnum && statusEnum !== DLRStatus.DRAFT ? statusEnum : { not: DLRStatus.DRAFT };
+    } else {
+      if (!userId) return res.status(400).json({ error: "userId is required for employee queries." });
+      where.userId = String(userId);
+      if (statusEnum) where.status = statusEnum;
+    }
+
+    if (term) {
+      where.OR = [
+        { dlrNumber: { contains: term, mode: "insensitive" } },
+        { jobNumber: { contains: term, mode: "insensitive" } },
+        { customer: { contains: term, mode: "insensitive" } },
+        { notes: { contains: term, mode: "insensitive" } },
+      ];
+    }
 
     const dlrs = await prisma.dLR.findMany({
       where,
       orderBy: { date: "desc" },
-      include: {
-        user: true,
-        invoice: true,
-        po: true,
-      },
+      include: { user: true, invoice: true, po: true },
     });
 
     res.json(dlrs);
@@ -64,6 +72,8 @@ export const getDLRs = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch DLRs" });
   }
 };
+
+
 
 /** GET /dlrs/:id */
 export const getDLRById = async (req: Request, res: Response) => {

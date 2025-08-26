@@ -34,28 +34,39 @@ const genDLRNumber = () => {
     return `DLR-${y}${m}${dd}-${n}`;
 };
 /** GET /dlrs?search=&userId=&role=(admin|employee)&status= */
+// in dlrController.ts, replace getDLRs with:
 const getDLRs = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { search, userId, role, status } = req.query;
     try {
         const term = search === null || search === void 0 ? void 0 : search.toString().trim();
-        const where = Object.assign(Object.assign(Object.assign({}, (role !== "admin" && userId ? { userId: String(userId) } : {})), (status ? { status: toDLRStatus(status) } : {})), (term
-            ? {
-                OR: [
-                    { dlrNumber: { contains: term, mode: "insensitive" } },
-                    { jobNumber: { contains: term, mode: "insensitive" } },
-                    { customer: { contains: term, mode: "insensitive" } },
-                    { notes: { contains: term, mode: "insensitive" } },
-                ],
-            }
-            : {}));
+        const roleIsAdmin = role === "admin";
+        const statusEnum = typeof status === "string" && Object.values(client_2.DLRStatus).includes(status.toUpperCase())
+            ? status.toUpperCase()
+            : undefined;
+        const where = {};
+        if (roleIsAdmin) {
+            // Admin: never return drafts
+            where.status = statusEnum && statusEnum !== client_2.DLRStatus.DRAFT ? statusEnum : { not: client_2.DLRStatus.DRAFT };
+        }
+        else {
+            if (!userId)
+                return res.status(400).json({ error: "userId is required for employee queries." });
+            where.userId = String(userId);
+            if (statusEnum)
+                where.status = statusEnum;
+        }
+        if (term) {
+            where.OR = [
+                { dlrNumber: { contains: term, mode: "insensitive" } },
+                { jobNumber: { contains: term, mode: "insensitive" } },
+                { customer: { contains: term, mode: "insensitive" } },
+                { notes: { contains: term, mode: "insensitive" } },
+            ];
+        }
         const dlrs = yield client_1.default.dLR.findMany({
             where,
             orderBy: { date: "desc" },
-            include: {
-                user: true,
-                invoice: true,
-                po: true,
-            },
+            include: { user: true, invoice: true, po: true },
         });
         res.json(dlrs);
     }
