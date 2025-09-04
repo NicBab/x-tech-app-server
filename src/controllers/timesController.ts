@@ -1,3 +1,4 @@
+// src/controllers/timesController.ts
 import { Request, Response } from "express";
 import prisma from "../prisma/client";
 import { EntryStatus } from "@prisma/client";
@@ -11,6 +12,10 @@ const toEntryStatus = (s: unknown): EntryStatus => {
   }
   return (s as EntryStatus) ?? EntryStatus.DRAFT;
 };
+
+const numOrNull = (v: any) => (v === "" || v == null ? null : Number(v));
+
+/********************************************************************************************** */
 
 /** GET /times?userId=&role=&status= */
 export const getTimeEntryGroups = async (req: Request, res: Response) => {
@@ -39,6 +44,8 @@ export const getTimeEntryGroups = async (req: Request, res: Response) => {
   }
 };
 
+/********************************************************************************************** */
+
 /** GET /times/:id */
 export const getTimeEntryGroupById = async (req: Request, res: Response) => {
   try {
@@ -54,6 +61,8 @@ export const getTimeEntryGroupById = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch time entry" });
   }
 };
+
+/********************************************************************************************** */
 
 /**
  * POST /times
@@ -80,9 +89,9 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
         id?: string;
         jobNumber: string;
         hoursWorked: number;
-        comments?: string;
-        mileage?: number;
-        extraExpenses?: string;
+        comments?: string | null;
+        mileage?: number | null;
+        extraExpenses?: string | null;
       }>;
     };
 
@@ -91,6 +100,8 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
     }
 
     const statusEnum = toEntryStatus(status);
+
+/********************************* */
 
     // UPDATE existing (allowed only if still DRAFT; can also flip to SUBMITTED)
     if (id) {
@@ -118,7 +129,7 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
                 jobNumber: j.jobNumber,
                 hoursWorked: Number(j.hoursWorked ?? 0),
                 comments: j.comments ?? null,
-                mileage: j.mileage == null ? null : Number(j.mileage),
+                mileage: numOrNull(j.mileage),
                 extraExpenses: j.extraExpenses ?? null,
               })),
             },
@@ -129,6 +140,8 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
 
       return res.status(200).json(updated);
     }
+
+/********************************************************************************************** */
 
     // CREATE new
     const created = await prisma.timeEntryGroup.create({
@@ -143,7 +156,7 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
             jobNumber: j.jobNumber,
             hoursWorked: Number(j.hoursWorked ?? 0),
             comments: j.comments ?? null,
-            mileage: j.mileage == null ? null : Number(j.mileage),
+            mileage: numOrNull(j.mileage),
             extraExpenses: j.extraExpenses ?? null,
           })),
         },
@@ -158,6 +171,8 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
   }
 };
 
+/********************************************************************************************** */
+
 /** PATCH /times/:id  (edit an existing DRAFT) */
 export const updateDraftTimeEntryGroup = async (req: Request, res: Response) => {
   try {
@@ -171,9 +186,9 @@ export const updateDraftTimeEntryGroup = async (req: Request, res: Response) => 
       jobs: Array<{
         jobNumber: string;
         hoursWorked: number;
-        comments?: string;
-        mileage?: number;
-        extraExpenses?: string;
+        comments?: string | null;
+        mileage?: number | null;
+        extraExpenses?: string | null;
       }>;
     };
 
@@ -207,7 +222,7 @@ export const updateDraftTimeEntryGroup = async (req: Request, res: Response) => 
               jobNumber: j.jobNumber,
               hoursWorked: Number(j.hoursWorked ?? 0),
               comments: j.comments ?? null,
-              mileage: j.mileage == null ? null : Number(j.mileage),
+              mileage: numOrNull(j.mileage),
               extraExpenses: j.extraExpenses ?? null,
             })),
           },
@@ -222,6 +237,8 @@ export const updateDraftTimeEntryGroup = async (req: Request, res: Response) => 
     return res.status(500).json({ error: "Failed to update time entry" });
   }
 };
+
+/********************************************************************************************** */
 
 /** PATCH /times/:id/submit  (DRAFT -> SUBMITTED) */
 export const submitTimeEntryGroup = async (req: Request, res: Response) => {
@@ -248,6 +265,8 @@ export const submitTimeEntryGroup = async (req: Request, res: Response) => {
   }
 };
 
+/********************************************************************************************** */
+
 /** DELETE /times/:id  (only if DRAFT) */
 export const deleteDraftTimeEntryGroup = async (req: Request, res: Response) => {
   try {
@@ -264,5 +283,90 @@ export const deleteDraftTimeEntryGroup = async (req: Request, res: Response) => 
   } catch (err) {
     console.error("Error deleting draft:", err);
     return res.status(500).json({ error: "Failed to delete draft" });
+  }
+};
+
+/********************************************************************************************** */
+
+/**
+ * POST /times/:id/resubmit
+ * For an existing SUBMITTED entry, replace it with a NEW SUBMITTED entry built from request payload.
+ * (Deletes the old group and its jobs, then creates a fresh group.)
+ */
+export const resubmitTimeEntryGroup = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const {
+      userId,
+      date,
+      weekEndingDate,
+      notes,
+      jobs,
+    } = req.body as {
+      userId: string;
+      date: string | Date;
+      weekEndingDate: string | Date;
+      notes?: string | null;
+      jobs: Array<{
+        jobNumber: string;
+        hoursWorked: number;
+        comments?: string | null;
+        mileage?: number | null;
+        extraExpenses?: string | null;
+      }>;
+    };
+
+    // find existing
+    const existing = await prisma.timeEntryGroup.findUnique({
+      where: { id },
+      include: { jobs: true },
+    });
+    if (!existing) return res.status(404).json({ error: "Not found" });
+
+    // only allow resubmit for previously SUBMITTED entries
+    if (existing.status !== EntryStatus.SUBMITTED) {
+      return res
+        .status(409)
+        .json({ error: "Only SUBMITTED entries can be re-submitted (replaced)" });
+    }
+
+    if (!userId || !date || !weekEndingDate || !Array.isArray(jobs)) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const created = await prisma.$transaction(async (tx) => {
+      // delete old record (and its jobs)
+      await tx.timeEntryJob.deleteMany({ where: { groupId: id } });
+      await tx.timeEntryGroup.delete({ where: { id } });
+
+      // create a brand-new SUBMITTED group with the edited data
+      const newGroup = await tx.timeEntryGroup.create({
+        data: {
+          userId,
+          date: new Date(date),
+          weekEndingDate: new Date(weekEndingDate),
+          status: EntryStatus.SUBMITTED,
+          notes: notes ?? null,
+          jobs: {
+            create: jobs.map((j) => ({
+              jobNumber: j.jobNumber,
+              hoursWorked: Number(j.hoursWorked ?? 0),
+              comments: j.comments ?? null,
+              mileage: numOrNull(j.mileage),
+              extraExpenses: j.extraExpenses ?? null,
+            })),
+          },
+        },
+        include: { jobs: true, user: { select: { name: true } } },
+      });
+
+      return newGroup;
+    });
+
+    return res.status(201).json(created);
+  } catch (err) {
+    console.error("Error resubmitting time entry:", err);
+    return res.status(500).json({ error: "Failed to re-submit time entry" });
   }
 };

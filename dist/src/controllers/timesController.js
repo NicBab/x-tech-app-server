@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteDraftTimeEntryGroup = exports.submitTimeEntryGroup = exports.updateDraftTimeEntryGroup = exports.upsertTimeEntryGroup = exports.getTimeEntryGroupById = exports.getTimeEntryGroups = void 0;
+exports.resubmitTimeEntryGroup = exports.deleteDraftTimeEntryGroup = exports.submitTimeEntryGroup = exports.updateDraftTimeEntryGroup = exports.upsertTimeEntryGroup = exports.getTimeEntryGroupById = exports.getTimeEntryGroups = void 0;
 const client_1 = __importDefault(require("../prisma/client"));
 const client_2 = require("@prisma/client");
 /** Normalize any incoming status to the Prisma enum (defaults to DRAFT) */
@@ -26,6 +26,8 @@ const toEntryStatus = (s) => {
     }
     return (_a = s) !== null && _a !== void 0 ? _a : client_2.EntryStatus.DRAFT;
 };
+const numOrNull = (v) => (v === "" || v == null ? null : Number(v));
+/********************************************************************************************** */
 /** GET /times?userId=&role=&status= */
 const getTimeEntryGroups = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -44,6 +46,7 @@ const getTimeEntryGroups = (req, res) => __awaiter(void 0, void 0, void 0, funct
     }
 });
 exports.getTimeEntryGroups = getTimeEntryGroups;
+/********************************************************************************************** */
 /** GET /times/:id */
 const getTimeEntryGroupById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -62,6 +65,7 @@ const getTimeEntryGroupById = (req, res) => __awaiter(void 0, void 0, void 0, fu
     }
 });
 exports.getTimeEntryGroupById = getTimeEntryGroupById;
+/********************************************************************************************** */
 /**
  * POST /times
  * Create new or (if id provided) update existing DRAFT; also supports direct submit by sending status SUBMITTED
@@ -73,6 +77,7 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
             return res.status(400).json({ error: "Missing required fields" });
         }
         const statusEnum = toEntryStatus(status);
+        /********************************* */
         // UPDATE existing (allowed only if still DRAFT; can also flip to SUBMITTED)
         if (id) {
             const existing = yield client_1.default.timeEntryGroup.findUnique({
@@ -101,7 +106,7 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
                                     jobNumber: j.jobNumber,
                                     hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                                     comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
-                                    mileage: j.mileage == null ? null : Number(j.mileage),
+                                    mileage: numOrNull(j.mileage),
                                     extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
                                 });
                             }),
@@ -112,6 +117,7 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
             }));
             return res.status(200).json(updated);
         }
+        /********************************************************************************************** */
         // CREATE new
         const created = yield client_1.default.timeEntryGroup.create({
             data: {
@@ -127,7 +133,7 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
                             jobNumber: j.jobNumber,
                             hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                             comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
-                            mileage: j.mileage == null ? null : Number(j.mileage),
+                            mileage: numOrNull(j.mileage),
                             extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
                         });
                     }),
@@ -143,6 +149,7 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.upsertTimeEntryGroup = upsertTimeEntryGroup;
+/********************************************************************************************** */
 /** PATCH /times/:id  (edit an existing DRAFT) */
 const updateDraftTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -178,7 +185,7 @@ const updateDraftTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0
                                 jobNumber: j.jobNumber,
                                 hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                                 comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
-                                mileage: j.mileage == null ? null : Number(j.mileage),
+                                mileage: numOrNull(j.mileage),
                                 extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
                             });
                         }),
@@ -195,6 +202,7 @@ const updateDraftTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0
     }
 });
 exports.updateDraftTimeEntryGroup = updateDraftTimeEntryGroup;
+/********************************************************************************************** */
 /** PATCH /times/:id/submit  (DRAFT -> SUBMITTED) */
 const submitTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -218,6 +226,7 @@ const submitTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
     }
 });
 exports.submitTimeEntryGroup = submitTimeEntryGroup;
+/********************************************************************************************** */
 /** DELETE /times/:id  (only if DRAFT) */
 const deleteDraftTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -237,3 +246,66 @@ const deleteDraftTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0
     }
 });
 exports.deleteDraftTimeEntryGroup = deleteDraftTimeEntryGroup;
+/********************************************************************************************** */
+/**
+ * POST /times/:id/resubmit
+ * For an existing SUBMITTED entry, replace it with a NEW SUBMITTED entry built from request payload.
+ * (Deletes the old group and its jobs, then creates a fresh group.)
+ */
+const resubmitTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const { userId, date, weekEndingDate, notes, jobs, } = req.body;
+        // find existing
+        const existing = yield client_1.default.timeEntryGroup.findUnique({
+            where: { id },
+            include: { jobs: true },
+        });
+        if (!existing)
+            return res.status(404).json({ error: "Not found" });
+        // only allow resubmit for previously SUBMITTED entries
+        if (existing.status !== client_2.EntryStatus.SUBMITTED) {
+            return res
+                .status(409)
+                .json({ error: "Only SUBMITTED entries can be re-submitted (replaced)" });
+        }
+        if (!userId || !date || !weekEndingDate || !Array.isArray(jobs)) {
+            return res.status(400).json({ error: "Missing required fields" });
+        }
+        const created = yield client_1.default.$transaction((tx) => __awaiter(void 0, void 0, void 0, function* () {
+            // delete old record (and its jobs)
+            yield tx.timeEntryJob.deleteMany({ where: { groupId: id } });
+            yield tx.timeEntryGroup.delete({ where: { id } });
+            // create a brand-new SUBMITTED group with the edited data
+            const newGroup = yield tx.timeEntryGroup.create({
+                data: {
+                    userId,
+                    date: new Date(date),
+                    weekEndingDate: new Date(weekEndingDate),
+                    status: client_2.EntryStatus.SUBMITTED,
+                    notes: notes !== null && notes !== void 0 ? notes : null,
+                    jobs: {
+                        create: jobs.map((j) => {
+                            var _a, _b, _c;
+                            return ({
+                                jobNumber: j.jobNumber,
+                                hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
+                                comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
+                                mileage: numOrNull(j.mileage),
+                                extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
+                            });
+                        }),
+                    },
+                },
+                include: { jobs: true, user: { select: { name: true } } },
+            });
+            return newGroup;
+        }));
+        return res.status(201).json(created);
+    }
+    catch (err) {
+        console.error("Error resubmitting time entry:", err);
+        return res.status(500).json({ error: "Failed to re-submit time entry" });
+    }
+});
+exports.resubmitTimeEntryGroup = resubmitTimeEntryGroup;
