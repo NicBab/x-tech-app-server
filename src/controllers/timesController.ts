@@ -92,6 +92,8 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
         comments?: string | null;
         mileage?: number | null;
         extraExpenses?: string | null;
+        startTime?: string | null; // NEW
+        endTime?: string | null;   // NEW
       }>;
     };
 
@@ -101,7 +103,7 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
 
     const statusEnum = toEntryStatus(status);
 
-/********************************* */
+    /********************************* */
 
     // UPDATE existing (allowed only if still DRAFT; can also flip to SUBMITTED)
     if (id) {
@@ -131,6 +133,8 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
                 comments: j.comments ?? null,
                 mileage: numOrNull(j.mileage),
                 extraExpenses: j.extraExpenses ?? null,
+                startTime: j.startTime ?? null, // NEW
+                endTime: j.endTime ?? null,     // NEW
               })),
             },
           },
@@ -141,7 +145,7 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
       return res.status(200).json(updated);
     }
 
-/********************************************************************************************** */
+    /********************************************************************************************** */
 
     // CREATE new
     const created = await prisma.timeEntryGroup.create({
@@ -158,6 +162,8 @@ export const upsertTimeEntryGroup = async (req: Request, res: Response) => {
             comments: j.comments ?? null,
             mileage: numOrNull(j.mileage),
             extraExpenses: j.extraExpenses ?? null,
+            startTime: j.startTime ?? null, // NEW
+            endTime: j.endTime ?? null,     // NEW
           })),
         },
       },
@@ -189,6 +195,8 @@ export const updateDraftTimeEntryGroup = async (req: Request, res: Response) => 
         comments?: string | null;
         mileage?: number | null;
         extraExpenses?: string | null;
+        startTime?: string | null; // NEW
+        endTime?: string | null;   // NEW
       }>;
     };
 
@@ -224,6 +232,8 @@ export const updateDraftTimeEntryGroup = async (req: Request, res: Response) => 
               comments: j.comments ?? null,
               mileage: numOrNull(j.mileage),
               extraExpenses: j.extraExpenses ?? null,
+              startTime: j.startTime ?? null, // NEW
+              endTime: j.endTime ?? null,     // NEW
             })),
           },
         },
@@ -314,6 +324,8 @@ export const resubmitTimeEntryGroup = async (req: Request, res: Response) => {
         comments?: string | null;
         mileage?: number | null;
         extraExpenses?: string | null;
+        startTime?: string | null; // NEW
+        endTime?: string | null;   // NEW
       }>;
     };
 
@@ -355,6 +367,8 @@ export const resubmitTimeEntryGroup = async (req: Request, res: Response) => {
               comments: j.comments ?? null,
               mileage: numOrNull(j.mileage),
               extraExpenses: j.extraExpenses ?? null,
+              startTime: j.startTime ?? null, // NEW
+              endTime: j.endTime ?? null,     // NEW
             })),
           },
         },

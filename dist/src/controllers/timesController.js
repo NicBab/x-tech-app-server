@@ -101,13 +101,15 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
                         notes: notes !== null && notes !== void 0 ? notes : null,
                         jobs: {
                             create: jobs.map((j) => {
-                                var _a, _b, _c;
+                                var _a, _b, _c, _d, _e;
                                 return ({
                                     jobNumber: j.jobNumber,
                                     hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                                     comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
                                     mileage: numOrNull(j.mileage),
                                     extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
+                                    startTime: (_d = j.startTime) !== null && _d !== void 0 ? _d : null, // NEW
+                                    endTime: (_e = j.endTime) !== null && _e !== void 0 ? _e : null, // NEW
                                 });
                             }),
                         },
@@ -128,13 +130,15 @@ const upsertTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, fun
                 notes: notes !== null && notes !== void 0 ? notes : null,
                 jobs: {
                     create: jobs.map((j) => {
-                        var _a, _b, _c;
+                        var _a, _b, _c, _d, _e;
                         return ({
                             jobNumber: j.jobNumber,
                             hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                             comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
                             mileage: numOrNull(j.mileage),
                             extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
+                            startTime: (_d = j.startTime) !== null && _d !== void 0 ? _d : null, // NEW
+                            endTime: (_e = j.endTime) !== null && _e !== void 0 ? _e : null, // NEW
                         });
                     }),
                 },
@@ -180,13 +184,15 @@ const updateDraftTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0
                     notes: notes !== null && notes !== void 0 ? notes : null,
                     jobs: {
                         create: jobs.map((j) => {
-                            var _a, _b, _c;
+                            var _a, _b, _c, _d, _e;
                             return ({
                                 jobNumber: j.jobNumber,
                                 hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                                 comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
                                 mileage: numOrNull(j.mileage),
                                 extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
+                                startTime: (_d = j.startTime) !== null && _d !== void 0 ? _d : null, // NEW
+                                endTime: (_e = j.endTime) !== null && _e !== void 0 ? _e : null, // NEW
                             });
                         }),
                     },
@@ -286,13 +292,15 @@ const resubmitTimeEntryGroup = (req, res) => __awaiter(void 0, void 0, void 0, f
                     notes: notes !== null && notes !== void 0 ? notes : null,
                     jobs: {
                         create: jobs.map((j) => {
-                            var _a, _b, _c;
+                            var _a, _b, _c, _d, _e;
                             return ({
                                 jobNumber: j.jobNumber,
                                 hoursWorked: Number((_a = j.hoursWorked) !== null && _a !== void 0 ? _a : 0),
                                 comments: (_b = j.comments) !== null && _b !== void 0 ? _b : null,
                                 mileage: numOrNull(j.mileage),
                                 extraExpenses: (_c = j.extraExpenses) !== null && _c !== void 0 ? _c : null,
+                                startTime: (_d = j.startTime) !== null && _d !== void 0 ? _d : null, // NEW
+                                endTime: (_e = j.endTime) !== null && _e !== void 0 ? _e : null, // NEW
                             });
                         }),
                     },

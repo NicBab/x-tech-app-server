@@ -104,6 +104,10 @@ model TimeEntryJob {
   mileage       Float?
   extraExpenses String?
 
+  // NEW (store UI times so edit screens can prefill)
+  startTime     String? @db.VarChar(5) // e.g. "08:30"
+  endTime       String? @db.VarChar(5) // e.g. "17:15"
+
   group TimeEntryGroup @relation(fields: [groupId], references: [id])
 }
 
